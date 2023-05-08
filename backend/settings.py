@@ -36,11 +36,13 @@ INSTALLED_APPS = [
     "product",
     "accounts",
     "drf_spectacular",
+    "corsheaders",
 ]
 
 AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -51,6 +53,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "backend.urls"
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+
+CORS_ORIGIN_WHITELIST = (
+    'https://rotexwilson.com',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+)
+
 
 DATABASES = {
     'default': {
