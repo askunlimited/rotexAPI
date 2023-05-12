@@ -15,6 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -182,5 +183,5 @@ EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIT_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 

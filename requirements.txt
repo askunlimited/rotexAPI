@@ -14,7 +14,6 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 drf-spectacular==0.26.2
 filelock==3.4.0
-frappe-bench==5.14.4
 gitdb2==2.0.6
 GitPython==2.1.15
 honcho==1.1.0
