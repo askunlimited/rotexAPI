@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
+from django.dispatch import receiver
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail
 
 
 class CustomUserManager(BaseUserManager):
@@ -26,16 +30,48 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    first_name = models.CharField(max_length=45)
-    last_name = models.CharField(max_length=45)
     email = models.CharField(max_length=80, unique=True)
     username = models.CharField(max_length=45)
-    phone = models.CharField(max_length=16)
     terms = models.BooleanField(default=False)
-
     objects = CustomUserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return self.email
+
+
+def upload_to(instance, filename):
+    return "profile/{filename}".format(filename=filename)
+
+
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=45)
+    last_name = models.CharField(max_length=45)
+    phone = models.CharField(max_length=16)
+    profile_image = models.ImageField(upload_to=upload_to)
+
+
+    def __str__(self):
+        return self.first_name
+
+
+
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+
+    email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
+
+    send_mail(
+        # title:
+        "Password Reset for {title}".format(title="Some website title"),
+        # message:
+        email_plaintext_message,
+        # from:
+        "[email protected]",
+        # to:
+        [reset_password_token.user.email]
+    )

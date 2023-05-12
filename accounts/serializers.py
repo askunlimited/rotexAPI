@@ -2,12 +2,11 @@ from rest_framework import serializers
 from rest_framework.validators import ValidationError
 from rest_framework.authtoken.models import Token
 
-from .models import User
+from .models import User, UserProfile
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    first_name = serializers.CharField(max_length=45)
-    last_name = serializers.CharField(max_length=45)
+
     email = serializers.CharField(max_length=45)
     phone = serializers.CharField(max_length=16)
     terms = serializers.BooleanField(default=False)
@@ -17,8 +16,6 @@ class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "first_name",
-            "last_name",
             "phone",
             "terms", 
             "email",
@@ -49,3 +46,24 @@ class SignUpSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserProfile
+        fields = "__all__"
+
+
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    class Meta:
+        model = User
+        fields = ["old_password", "new_password"]
+
+    """
+    Serializer for password change endpoint.
+    """

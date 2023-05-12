@@ -4,6 +4,7 @@ from .views import (
     CategoryRetrieveUpdateDeleteView,
     ProductListCreateView,
     ProductRetrieveUpdateDeleteView,
+
 )
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
         ProductRetrieveUpdateDeleteView.as_view(),
         name="product_detail",
     ),
+
 ]

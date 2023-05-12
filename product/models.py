@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -8,7 +10,7 @@ User = get_user_model()
 
 class Category(models.Model):
     title = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.CharField(blank=True, max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -26,7 +28,7 @@ class Product(models.Model):
     weight = models.FloatField(default=0, blank=True)
     price = models.FloatField(default=0, blank=True)
     location = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    description = models.TextField(null=True, blank=True)
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     category = models.ForeignKey(
         Category,
@@ -48,3 +50,4 @@ class ProductImage(models.Model):
         Product, on_delete=models.CASCADE, related_name="images"
     )
     image = models.ImageField(upload_to=upload_to, default="", null=True, blank=True)
+

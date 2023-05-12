@@ -13,3 +13,6 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["title", "author", "weight", "price", "location", "created_on"]
     list_filter = ["created_on"]
+
+
+
