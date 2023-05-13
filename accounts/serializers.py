@@ -8,7 +8,7 @@ from .models import User, UserProfile
 class SignUpSerializer(serializers.ModelSerializer):
 
     email = serializers.CharField(max_length=45)
-    phone = serializers.CharField(max_length=16)
+    # phone = serializers.CharField(max_length=16)
     terms = serializers.BooleanField(default=False)
     # username = serializers.CharField(max_length=45)
     password = serializers.CharField(min_length=8, write_only=True)
@@ -16,7 +16,9 @@ class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "phone",
+            "first_name",
+            "last_name",
+            # "phone",
             "terms", 
             "email",
             # "username",
