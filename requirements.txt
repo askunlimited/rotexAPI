@@ -34,3 +34,4 @@ swagger-spec-validator==3.0.3
 typing_extensions==4.5.0
 uritemplate==4.1.1
 urllib3==1.26.15
+pip==3.9
