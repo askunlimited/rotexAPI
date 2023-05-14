@@ -68,24 +68,24 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': os.getenv('DATABASE_URL'),
-        'NAME': os.getenv('PG_DATABASE'),
-        'USER': os.getenv('PG_USER'),
-        'PASSWORD': os.getenv('PG_PASSWORD'),
-        'HOST': os.getenv('PG_HOST'),
-        'PORT': os.getenv('PG_PORT')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'URL': os.getenv('DATABASE_URL'),
+#         'NAME': os.getenv('PG_DATABASE'),
+#         'USER': os.getenv('PG_USER'),
+#         'PASSWORD': os.getenv('PG_PASSWORD'),
+#         'HOST': os.getenv('PG_HOST'),
+#         'PORT': os.getenv('PG_PORT')
+#     }
+# }
 
 
 
@@ -187,10 +187,10 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Actual directory user files go to
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "uploadfolder")
 
 # URL used to access the media
-MEDIA_URL = "/media/"
+MEDIA_URL = "/uploads/"
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
