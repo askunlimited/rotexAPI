@@ -4,11 +4,14 @@ from .models import Product, Category, ProductImage
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    title = serializers.CharField(max_length=50)
+    product_category = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # product_category = serializers.HyperlinkedRelatedField(
+    #     many=True, view_name="product_detail", queryset=Product.objects.all()
+    # )
 
     class Meta:
         model = Category
-        fields = ["id", "title", "description"]
+        fields = ["id", "title", "product_category"]
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -18,7 +21,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # category = CategorySerializer(many=True)
+    category = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # product_category = CategorySerializer(many=True, read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
     uploaded_images = serializers.ListField(
         child=serializers.ImageField(

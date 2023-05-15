@@ -41,7 +41,7 @@ class CategoryRetrieveUpdateDeleteView(
     mixins.DestroyModelMixin,
 ):
     serializer_class = CategorySerializer
-    permission_classes = [AuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Category.objects.all()
 
     def get(self, request: Request, *args, **kwargs):
@@ -81,7 +81,7 @@ class ProductRetrieveUpdateDeleteView(
     mixins.DestroyModelMixin,
 ):
     serializer_class = ProductSerializer
-    permission_classes = [AuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Product.objects.all()
 
     def get(self, request: Request, *args, **kwargs):
@@ -97,7 +97,7 @@ class ProductRetrieveUpdateDeleteView(
 class ListProductForAuthor(generics.GenericAPIView, mixins.ListModelMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [AuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         user = self.request.user
@@ -110,7 +110,7 @@ class ListProductForAuthor(generics.GenericAPIView, mixins.ListModelMixin):
 class ListProductByCategory(generics.GenericAPIView, mixins.ListModelMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [AuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         category = self.request.category
@@ -119,45 +119,3 @@ class ListProductByCategory(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-
-#
-# class PageListCreateView(
-#     generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin
-# ):
-#     serializer_class = PageSerializer
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#     queryset = Page.objects.all()
-#     # parser_classes = (MultiPartParser, FormParser)
-#
-#     def perform_create(self, serializer):
-#         user = self.request.user
-#         serializer.save(author=user)
-#         return super().perform_create(serializer)
-#
-#     def get(self, request: Request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-#
-#     def post(self, request: Request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
-#
-#
-#
-# class PageRetrieveUpdateDeleteView(
-#     generics.GenericAPIView,
-#     mixins.RetrieveModelMixin,
-#     mixins.UpdateModelMixin,
-#     mixins.DestroyModelMixin,
-# ):
-#     serializer_class = PageSerializer
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#     queryset = Page.objects.all()
-#
-#     def get(self, request: Request, *args, **kwargs):
-#         return self.retrieve(request, *args, **kwargs)
-#
-#     def put(self, request: Request, *args, **kwargs):
-#         return self.update(request, *args, **kwargs)
-#
-#     def delete(self, request: Request, *args, **kwargs):
-#         return self.destroy(request, *args, **kwargs)
-#
