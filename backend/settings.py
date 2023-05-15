@@ -191,7 +191,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploadfolder")
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static_cdn', 'media_root')
 
 # URL used to access the media
-MEDIA_URL = "/uploads/"
+MEDIA_URL = "uploads/"
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
